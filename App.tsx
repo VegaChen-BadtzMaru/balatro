@@ -1,14 +1,14 @@
 import React, { FC } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { Provider } from "react-redux";
+import { store } from "./src/store";
+import Counter from "./src/app/page/Counter";
 
 const App: FC = () => {
     return (
-        <View>
-            <Text>App</Text>
-        </View>
+        <Provider store={store}>
+            <Counter />
+        </Provider>
     );
 };
-
-const styles = StyleSheet.create({});
 
 export default App;
