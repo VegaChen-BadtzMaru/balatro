@@ -1,9 +1,14 @@
 import React, { FC } from "react";
-import { Text, StyleSheet, Button, SafeAreaView } from "react-native";
-import { decrement, increment, incrementAsync, incrementByAmount, incrementIfOdd } from "../../features/counter/counterSlice";
+import { StyleSheet, Button, SafeAreaView } from "react-native";
+import { decrement, increment, incrementAsync, incrementByAmount, incrementIfOdd } from "../../module/counter/counterSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RouterParams } from "../router/type";
+import Text from "@/widget/Text";
 
-const Counter: FC = () => {
+export interface CounterProps extends NativeStackScreenProps<RouterParams, "Counter"> {}
+
+const Counter: FC<CounterProps> = ({ navigation }) => {
     const { value, status } = useAppSelector((state) => state.counter);
     const dispatch = useAppDispatch();
 
@@ -16,6 +21,7 @@ const Counter: FC = () => {
             <Button title="Decrement value" onPress={() => dispatch(decrement())} />
             <Button title="IncrementAsync" onPress={() => dispatch(incrementAsync())} />
             <Button title="incrementIfOdd" onPress={() => dispatch(incrementIfOdd(2))} />
+            <Button title="Go Back" onPress={() => navigation.goBack()} />
         </SafeAreaView>
     );
 };
