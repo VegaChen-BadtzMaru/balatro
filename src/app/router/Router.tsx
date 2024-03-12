@@ -2,20 +2,29 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { FC } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { RouterParams } from "./type";
-import Home from "../page/home/Home";
-import Details from "../page/details/Details";
 import { Navigation, NavigationRef } from "./Navigation";
-import Counter from "../page/Counter";
+import Landing from "../page/Landing";
+import TestHands from "../page/TestHands";
+import { resetTestHandsState } from "@/module/testHands/testHandsSlice";
+import { useAppDispatch } from "@/store/hooks";
 
 const Stack = createNativeStackNavigator<RouterParams>();
 
 const Router: FC = () => {
+    const dispatch = useAppDispatch();
     return (
         <NavigationContainer ref={(_: NavigationRef) => (Navigation.rootNavigator = _)}>
-            <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
-                <Stack.Screen name="Home" component={Home} />
-                <Stack.Screen name="Details" component={Details} />
-                <Stack.Screen name="Counter" component={Counter} />
+            <Stack.Navigator initialRouteName="Landing" screenOptions={{ headerShown: false }}>
+                <Stack.Screen name="Landing" component={Landing} />
+                <Stack.Screen
+                    name="TestHands"
+                    component={TestHands}
+                    listeners={{
+                        beforeRemove: () => {
+                            dispatch(resetTestHandsState());
+                        },
+                    }}
+                />
             </Stack.Navigator>
         </NavigationContainer>
     );

@@ -1,7 +1,6 @@
+import { testHandsRouterParams } from "../page/TestHands/type";
+
 export type RouterParams = {
-    Home: undefined;
-    Details: {
-        id: string;
-    };
-    Counter: undefined;
+    Landing: undefined;
+    TestHands: testHandsRouterParams;
 };
