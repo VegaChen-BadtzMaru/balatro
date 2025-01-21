@@ -1,18 +1,18 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { ListHands, Poker } from "../basic/type";
+import { HandsListObject, Poker } from "../basic/type";
 import { AppThunk } from "@/store";
 import { PokerUtil } from "@/util/PokerUtil";
 
 export interface testHandsState {
     pokerList: Poker[];
     scoreList: Poker[] | null;
-    listHands: ListHands | null;
+    handsListObject: HandsListObject | null;
 }
 
 const initialState: testHandsState = {
     pokerList: [],
     scoreList: null,
-    listHands: null,
+    handsListObject: null,
 };
 
 export const testHandsSlice = createSlice({
@@ -25,8 +25,8 @@ export const testHandsSlice = createSlice({
         setPokerList: (state, action: PayloadAction<Poker[]>) => {
             state.pokerList = action.payload;
         },
-        setListHands: (state, action: PayloadAction<ListHands>) => {
-            state.listHands = action.payload;
+        setListHands: (state, action: PayloadAction<HandsListObject>) => {
+            state.handsListObject = action.payload;
             if (action.payload.RoyalFlush) {
                 state.scoreList = action.payload.RoyalFlush.scoreList;
             } else if (action.payload.StraightFlush) {
@@ -58,7 +58,7 @@ export const generateTestHands =
     (pokerList: Poker[]): AppThunk =>
     (dispatch, getState) => {
         dispatch(setPokerList(pokerList));
-        dispatch(setListHands(PokerUtil.getListHands({ pokerList: PokerUtil.sortPokerList(pokerList, "face") })));
+        dispatch(setListHands(PokerUtil.getHandsListObject({ pokerList: PokerUtil.sortPokerList(pokerList, "face") })));
     };
 
 export const resetTestHandsState = (): AppThunk => (dispatch, getState) => {

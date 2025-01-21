@@ -35,7 +35,7 @@ export enum compareResult {
     Draw,
 }
 
-export interface ListHands {
+export interface HandsListObject {
     RoyalFlush: HandsItem | null;
     StraightFlush: HandsItem | null;
     Four: HandsItem | null;

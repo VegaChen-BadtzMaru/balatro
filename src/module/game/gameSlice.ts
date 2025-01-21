@@ -1,12 +1,12 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { ListHands, Poker, Suits } from "../basic/type";
+import { HandsListObject, Poker, Suits } from "../basic/type";
 import { AppThunk } from "@/store";
 import { CommonUtil } from "@/util/CommonUtil";
 import { PokerUtil } from "@/util/PokerUtil";
 
 export interface gameState {
     testPokerList: Poker[];
-    testListHands: ListHands | null;
+    testListHands: HandsListObject | null;
     testScoreList: Poker[] | null;
 }
 
@@ -23,7 +23,7 @@ export const gameSlice = createSlice({
         setTestPokerList: (state, action: PayloadAction<Poker[]>) => {
             state.testPokerList = action.payload;
         },
-        setTestListHands: (state, action: PayloadAction<ListHands>) => {
+        setTestListHands: (state, action: PayloadAction<HandsListObject>) => {
             state.testListHands = action.payload;
             if (action.payload.RoyalFlush) {
                 state.testScoreList = action.payload.RoyalFlush.scoreList;
@@ -68,9 +68,9 @@ export const generateTestPokers = (): AppThunk => (dispatch, getState) => {
     pokerList.sort((pre, nex) => {
         return nex.face - pre.face || pre.suits - nex.suits;
     });
-    const listHands = PokerUtil.getListHands({ pokerList });
+    const handsListObject = PokerUtil.getHandsListObject({ pokerList });
     dispatch(setTestPokerList(pokerList));
-    dispatch(setTestListHands(listHands));
+    dispatch(setTestListHands(handsListObject));
 };
 
 export const testGenerateTestPokers = (): AppThunk => (dispatch, getState) => {
@@ -83,9 +83,9 @@ export const testGenerateTestPokers = (): AppThunk => (dispatch, getState) => {
         { id: "6", suits: Suits.Spades, face: 3 },
         { id: "7", suits: Suits.Spades, face: 2 },
     ];
-    const listHands = PokerUtil.getListHands({ pokerList });
+    const handsListObject = PokerUtil.getHandsListObject({ pokerList });
     dispatch(setTestPokerList(pokerList));
-    dispatch(setTestListHands(listHands));
+    dispatch(setTestListHands(handsListObject));
 };
 
 export const gameReducer = gameSlice.reducer;

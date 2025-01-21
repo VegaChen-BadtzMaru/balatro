@@ -1,5 +1,5 @@
 import { getSuitsType } from "@/module/basic/func";
-import { HandsItem, ListHands, Poker, PokerHands, Suits } from "@/module/basic/type";
+import { HandsItem, HandsListObject, Poker, PokerHands, Suits } from "@/module/basic/type";
 
 export const MAX_SCORE_LIST_LENGTH = 5;
 
@@ -385,7 +385,7 @@ export class PokerUtil {
         };
     };
 
-    static getListHands = (params: { pokerList: Poker[] }): ListHands => {
+    static getHandsListObject = (params: { pokerList: Poker[] }): HandsListObject => {
         const { pokerList } = params;
         const RoyalFlush = PokerUtil.isRoyalFlush({ pokerList });
         const StraightFlush = PokerUtil.isStraightFlush({ pokerList });
@@ -453,12 +453,12 @@ export class PokerUtil {
 
     static sortPokerList = (pokerList: Poker[], sortType: "face" | "suits") => {
         if (sortType === "face") {
-            return [...pokerList].sort((pre, nex) => {
-                return nex.face - pre.face || pre.suits - nex.suits;
+            return [...pokerList].sort((prev, next) => {
+                return next.face - prev.face || prev.suits - next.suits;
             });
         } else if (sortType === "suits") {
-            return [...pokerList].sort((pre, nex) => {
-                return pre.suits - nex.suits || nex.face - pre.face;
+            return [...pokerList].sort((prev, next) => {
+                return prev.suits - next.suits || next.face - prev.face;
             });
         }
         return pokerList;

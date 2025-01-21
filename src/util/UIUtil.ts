@@ -1,16 +1,29 @@
-import { ListHands, Suits, PokerHands } from "@/module/basic/type";
+import { HandsListObject, Suits, PokerHands } from "@/module/basic/type";
 
 export class UIUtil {
-    static getSuitsTxt = (suits: Suits) => {
-        switch (suits) {
-            case Suits.Spades:
-                return "♠";
-            case Suits.Hearts:
-                return "♥";
-            case Suits.Clubs:
-                return "♣";
-            case Suits.Diamonds:
-                return "♦";
+    static getSuitsTxt = (suits: Suits, showAbbr = true) => {
+        if (showAbbr) {
+            switch (suits) {
+                case Suits.Spades:
+                    return "Sp";
+                case Suits.Hearts:
+                    return "He";
+                case Suits.Clubs:
+                    return "Cl";
+                case Suits.Diamonds:
+                    return "Di";
+            }
+        } else {
+            switch (suits) {
+                case Suits.Spades:
+                    return "♠";
+                case Suits.Hearts:
+                    return "♥";
+                case Suits.Clubs:
+                    return "♣";
+                case Suits.Diamonds:
+                    return "♦";
+            }
         }
     };
     static getSuitsColor = (suits: Suits) => {
@@ -37,7 +50,7 @@ export class UIUtil {
         }
         return face;
     };
-    static getListHandsTxt = (listHands: ListHands | null) => {
+    static getHandsListObjectHightestHandsText = (listHands: HandsListObject | null) => {
         if (!listHands) {
             return "null";
         }

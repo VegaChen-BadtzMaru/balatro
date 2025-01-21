@@ -14,7 +14,7 @@ import { generateTestHands } from "@/module/testHands/testHandsSlice";
 export interface TestHandsProps extends NativeStackScreenProps<RouterParams, "TestHands"> {}
 
 const TestHands: FC<TestHandsProps> = ({ navigation, route }) => {
-    const { pokerList, scoreList, listHands } = useAppSelector((state) => state.testHands);
+    const { pokerList, scoreList, handsListObject } = useAppSelector((state) => state.testHands);
 
     const dispatch = useAppDispatch();
 
@@ -24,40 +24,40 @@ const TestHands: FC<TestHandsProps> = ({ navigation, route }) => {
 
     const testScoreItemList = useMemo(() => {
         const scoreItemList: { hands: PokerHands; handsItem: HandsItem }[] = [];
-        if (listHands) {
-            if (listHands.RoyalFlush) {
-                scoreItemList.push({ hands: PokerHands.RoyalFlush, handsItem: listHands.RoyalFlush });
+        if (handsListObject) {
+            if (handsListObject.RoyalFlush) {
+                scoreItemList.push({ hands: PokerHands.RoyalFlush, handsItem: handsListObject.RoyalFlush });
             }
-            if (listHands.StraightFlush) {
-                scoreItemList.push({ hands: PokerHands.StraightFlush, handsItem: listHands.StraightFlush });
+            if (handsListObject.StraightFlush) {
+                scoreItemList.push({ hands: PokerHands.StraightFlush, handsItem: handsListObject.StraightFlush });
             }
-            if (listHands.Four) {
-                scoreItemList.push({ hands: PokerHands.Four, handsItem: listHands.Four });
+            if (handsListObject.Four) {
+                scoreItemList.push({ hands: PokerHands.Four, handsItem: handsListObject.Four });
             }
-            if (listHands.FullHouse) {
-                scoreItemList.push({ hands: PokerHands.FullHouse, handsItem: listHands.FullHouse });
+            if (handsListObject.FullHouse) {
+                scoreItemList.push({ hands: PokerHands.FullHouse, handsItem: handsListObject.FullHouse });
             }
-            if (listHands.Flush) {
-                scoreItemList.push({ hands: PokerHands.Flush, handsItem: listHands.Flush });
+            if (handsListObject.Flush) {
+                scoreItemList.push({ hands: PokerHands.Flush, handsItem: handsListObject.Flush });
             }
-            if (listHands.Straight) {
-                scoreItemList.push({ hands: PokerHands.Straight, handsItem: listHands.Straight });
+            if (handsListObject.Straight) {
+                scoreItemList.push({ hands: PokerHands.Straight, handsItem: handsListObject.Straight });
             }
-            if (listHands.Three) {
-                scoreItemList.push({ hands: PokerHands.Three, handsItem: listHands.Three });
+            if (handsListObject.Three) {
+                scoreItemList.push({ hands: PokerHands.Three, handsItem: handsListObject.Three });
             }
-            if (listHands.TwoPair) {
-                scoreItemList.push({ hands: PokerHands.TwoPair, handsItem: listHands.TwoPair });
+            if (handsListObject.TwoPair) {
+                scoreItemList.push({ hands: PokerHands.TwoPair, handsItem: handsListObject.TwoPair });
             }
-            if (listHands.Pair) {
-                scoreItemList.push({ hands: PokerHands.Pair, handsItem: listHands.Pair });
+            if (handsListObject.Pair) {
+                scoreItemList.push({ hands: PokerHands.Pair, handsItem: handsListObject.Pair });
             }
-            if (listHands.HighCard) {
-                scoreItemList.push({ hands: PokerHands.HighCard, handsItem: listHands.HighCard });
+            if (handsListObject.HighCard) {
+                scoreItemList.push({ hands: PokerHands.HighCard, handsItem: handsListObject.HighCard });
             }
         }
         return scoreItemList;
-    }, [listHands]);
+    }, [handsListObject]);
 
     return (
         <View style={{ flex: 1 }}>
@@ -70,7 +70,7 @@ const TestHands: FC<TestHandsProps> = ({ navigation, route }) => {
                     })}
                 </View>
                 <View style={styles.handsView}>
-                    <Text style={{ fontSize: StyleUtil.px(20) }}>Hands: {UIUtil.getListHandsTxt(listHands)}</Text>
+                    <Text style={{ fontSize: StyleUtil.px(20) }}>Hands: {UIUtil.getHandsListObjectHightestHandsText(handsListObject)}</Text>
                 </View>
                 {testScoreItemList.map((scoreItem, i) => {
                     return (
